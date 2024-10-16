@@ -1,0 +1,49 @@
+SDA-24
+sck-23
+mosi-19
+miso-21
+gnd-6
+rst-22
+3.3v-1
+
+sudo nano writetest.py 
+➢ Copy and paste the write.py code
+➢ Ctrl+O + Enter -> to save the code
+➢ Ctrl + x -> to exit
+sudo pip3 install mfrc522 
+sudo raspi-config 
+➢ After that go to interfacing option and enable the SPI and finish.
+sudo nano read.py 
+➢ Copy and paste the read.py
+➢ Ctrl + O + Enter → to save the code
+➢ Ctrl + X → to exit
+sudo python3 writetest.py 
+new dataMegaBytes 
+➢ Place your tag and card to read 
+➢ Now place your card or tag on the sensor for output
+
+code:
+Read.py
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+reader = SimpleMFRC522()
+try:
+print("Place your card:")
+id, text = reader.read()
+print("ID:", id)
+print("Text:", text)
+finally:
+GPIO.cleanup()
+
+
+Write.py
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
+reader = SimpleMFRC522()
+try:
+text = input('New data: ')
+print("Now place your tag to write...")
+reader.write(text)
+print("Written")
+finally:
+GPIO.cleanup()
